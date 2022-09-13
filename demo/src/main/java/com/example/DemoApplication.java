@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.domains.contracts.repositories.ActorRepository;
+import com.example.domains.core.entities.dtos.ActorDto;
 import com.example.domains.entities.Actor;
 
 @SpringBootApplication
@@ -68,7 +69,12 @@ public class DemoApplication implements CommandLineRunner {
 //		else {
 //			System.out.println(item.getErrorsMessage());
 //		}
-
+		var a = new ActorDto();
+		a.setFirstName("kk");
+//		dao.findAll().forEach(item -> System.out.println(ActorDto.from(item)));
+		var item = ActorDto.from(a);
+		System.out.println(item);
+		System.out.println(item.getErrorsMessage());
 	}
 
 }
