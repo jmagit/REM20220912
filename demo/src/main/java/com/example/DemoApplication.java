@@ -1,5 +1,7 @@
 package com.example;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,6 +21,7 @@ public class DemoApplication implements CommandLineRunner {
 	private ActorRepository dao;
 	
 	@Override
+	@Transactional
 	public void run(String... args) throws Exception {
 		System.out.println("Hola mundo");
 		
@@ -44,8 +47,28 @@ public class DemoApplication implements CommandLineRunner {
 //		item.setFirstName("Pepitoooooooooo");
 //		item.setLastName("Grillo");
 //		dao.save(item);
-		dao.deleteById(201);
-		dao.findAll().forEach(System.out::println);
+//		dao.deleteById(201);
+//		dao.findAll().forEach(System.out::println);
+//		dao.findTop3ByFirstNameStartingWithOrderByFirstNameDesc("pe").forEach(System.out::println);
+//		dao.findTop3ByFirstNameStartinWithOrderByFirstNameDesc("MIRANDA").forEach(System.out::println);
+//		dao.findByActorIdGreaterThan(200).forEach(System.out::println);
+//		dao.findByActorIdBetween(10, 20).forEach(System.out::println);
+//		dao.dameConApellido("MIRANDA").forEach(System.out::println);
+//		dao.findAll((root, query, builder) -> builder.lessThanOrEqualTo(root.get("actorId"), 10)).forEach(System.out::println);
+//		var actor = dao.findById(1);
+//		if(actor.isPresent()) {
+//			System.out.println(actor.get());
+//			actor.get().getFilmActors().forEach(item -> System.out.println(item.getFilm().getTitle()));
+//		}
+//		var item = new Actor(202);
+//		item.setFirstName("P");
+//		item.setLastName("12345678Z");
+//		if(item.isValid())
+//		dao.save(item);
+//		else {
+//			System.out.println(item.getErrorsMessage());
+//		}
+
 	}
 
 }
