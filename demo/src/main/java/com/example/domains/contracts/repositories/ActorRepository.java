@@ -2,6 +2,9 @@ package com.example.domains.contracts.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +19,10 @@ public interface ActorRepository extends JpaRepository<Actor, Integer>, JpaSpeci
 	List<Actor> findTop3ByFirstNameStartinWithOrderByFirstNameDesc(String prefijo);
 	@Query(value = "SELECT * FROM actor where last_name = ?1", nativeQuery = true)
 	List<Actor> dameConApellido(String prefijo);
+	
+	
+	<T> List<T> findByActorIdIsNotNull(Class<T> type);
+	<T> Iterable<T> findByActorIdIsNotNull(Sort sort, Class<T> type);
+	<T> Page<T> findByActorIdIsNotNull(Pageable pageable, Class<T> type);
+
 }
