@@ -1,5 +1,6 @@
 package com.example.domains.core.entities.dtos;
 
+import com.example.domains.core.validations.NIF;
 import com.example.domains.entities.Actor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,6 +14,7 @@ public class ActorDto {
 	private int actorId;
 	@JsonProperty("nombre")
 	private String firstName;
+	//@NIF
 	@JsonProperty("apellidos")
 	private String lastName;
 

@@ -2,6 +2,7 @@ package com.example.domains.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -33,13 +34,12 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	@Column(name="first_name", nullable=false, length=45)
 	@NotBlank
 	@Size(min=2, max=45)
-	@Pattern(regexp = "[A-Z]+")
+//	@Pattern(regexp = "[A-Z]+")
 	private String firstName;
 
 	@Column(name="last_name", nullable=false, length=45)
 	@NotBlank
 	@Size(min=2, max=45)
-	@NIF
 	private String lastName;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
@@ -47,7 +47,8 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 
 	//bi-directional many-to-one association to FilmActor
 	@OneToMany(mappedBy="actor", fetch = FetchType.LAZY)
-	private List<FilmActor> filmActors;
+	@Valid
+	private List<@Valid FilmActor> filmActors;
 
 	public Actor() {
 	}

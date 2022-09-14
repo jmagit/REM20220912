@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -12,6 +13,7 @@ import com.example.exceptions.BadRequestException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 
 @RestControllerAdvice
@@ -43,9 +45,9 @@ public class ApiExceptionHandler {
 	}
 
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler({ NotFoundException.class })
+	@ExceptionHandler({ NotFoundException.class, EmptyResultDataAccessException.class })
 	public ErrorMessage notFoundRequest(Exception exception, HttpServletRequest request) {
-		return new ErrorMessage(exception.getMessage(), request.getRequestURI());
+		return new ErrorMessage("not found", request.getRequestURI());
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -55,7 +57,7 @@ public class ApiExceptionHandler {
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler({ InvalidDataException.class })
+	@ExceptionHandler({ InvalidDataException.class, MethodArgumentNotValidException.class })
 	public ErrorMessage invalidData(Exception exception) {
 		return new ErrorMessage("validation error", exception.getMessage());
 	}
