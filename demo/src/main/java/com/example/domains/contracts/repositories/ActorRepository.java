@@ -20,6 +20,8 @@ public interface ActorRepository extends JpaRepository<Actor, Integer>, JpaSpeci
 	@Query(value = "SELECT * FROM actor where last_name = ?1", nativeQuery = true)
 	List<Actor> dameConApellido(String prefijo);
 	
+	@Query("SELECT a FROM Actor a")
+	<T> List<T> dameTodos(Class<T> type);
 	
 	<T> List<T> findByActorIdIsNotNull(Class<T> type);
 	<T> Iterable<T> findByActorIdIsNotNull(Sort sort, Class<T> type);

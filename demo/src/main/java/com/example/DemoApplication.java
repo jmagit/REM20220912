@@ -3,9 +3,12 @@ package com.example;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import com.example.domains.contracts.repositories.ActorRepository;
 import com.example.domains.core.entities.dtos.ActorDto;
@@ -20,16 +23,16 @@ public class DemoApplication implements CommandLineRunner {
 
 	@Autowired
 	private ActorRepository dao;
-	
+
 	@Override
 	@Transactional
 	public void run(String... args) throws Exception {
 		System.out.println("Hola mundo");
-		
+
 //		var actor = dao.findById(1);
 //		if(actor.isPresent())
 //			System.out.println(actor.get());
-		
+
 //		var item = new Actor();
 //		item.setFirstName("Pepito");
 //		item.setLastName("Grillo");
@@ -69,12 +72,30 @@ public class DemoApplication implements CommandLineRunner {
 //		else {
 //			System.out.println(item.getErrorsMessage());
 //		}
-		var a = new ActorDto();
-		a.setFirstName("kk");
-//		dao.findAll().forEach(item -> System.out.println(ActorDto.from(item)));
-		var item = ActorDto.from(a);
-		System.out.println(item);
-		System.out.println(item.getErrorsMessage());
+//		var a = new ActorDto();
+//		a.setFirstName("kk");
+////		dao.findAll().forEach(item -> System.out.println(ActorDto.from(item)));
+//		var item = ActorDto.from(a);
+//		System.out.println(item);
+//		System.out.println(item.getErrorsMessage());
+
+		// dao.findAll(PageRequest.of(2, 10,
+		// Sort.by("actorId"))).getContent().forEach(System.out::println);
+
+		// dao.findAll().forEach(item -> System.out.println(ActorDto.from(item)));
+		interface NamesOnly {
+			@Value("#{target.lastName}")
+			String getApellidos();
+			@Value("#{target.firstName}")
+			String getNombre();
+//			@Value("#{args[0] + ' ' + target.firstName + ' ' + target.lastName}")
+			@Value("#{target.lastName + ', ' + target.firstName}")
+			String getNombreCompleto(String tratamiento);
+		}
+
+//		dao.dameTodos(NamesOnly.class).forEach(System.out::println);
+		dao.dameTodos(NamesOnly.class).forEach(item -> System.out.println(item.getNombreCompleto(null)));
+//		dao.dameTodos(ActorDto.class).forEach(System.out::println);
 	}
 
 }
