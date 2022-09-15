@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import com.example.domains.entities.Actor;
@@ -45,6 +46,7 @@ public class FilmEditDTO {
 	@Schema(description = "El título de la película", required = true)
 	private String title;
 	@Schema(description = "El identificador del idioma de la película")
+	@NotNull
 	private Integer languageId;
 	@Schema(description = "El identificador del idioma original de la película")
 	private Integer languageVOId;
