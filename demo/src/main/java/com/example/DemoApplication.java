@@ -11,8 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import com.example.domains.contracts.repositories.ActorRepository;
-import com.example.domains.core.entities.dtos.ActorDto;
 import com.example.domains.entities.Actor;
+import com.example.domains.entities.dto.ActorDto;
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {

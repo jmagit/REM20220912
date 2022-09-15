@@ -1,4 +1,4 @@
-package com.example.domains.core.entities.dtos;
+package com.example.domains.entities.dto;
 
 import com.example.domains.core.validations.NIF;
 import com.example.domains.entities.Actor;

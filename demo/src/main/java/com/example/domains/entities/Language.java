@@ -2,6 +2,11 @@ package com.example.domains.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -25,14 +30,18 @@ public class Language implements Serializable {
 	private Timestamp lastUpdate;
 
 	@Column(nullable=false, length=20)
+	@NotBlank
+	@Size(min=2, max=20)
 	private String name;
 
 	//bi-directional many-to-one association to Film
 	@OneToMany(mappedBy="language")
+	@JsonIgnore
 	private List<Film> films;
 
 	//bi-directional many-to-one association to Film
 	@OneToMany(mappedBy="languageVO")
+	@JsonIgnore
 	private List<Film> filmsVO;
 
 	public Language() {

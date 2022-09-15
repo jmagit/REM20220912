@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.domains.contracts.services.ActorService;
-import com.example.domains.core.entities.dtos.ActorDto;
+import com.example.domains.entities.dto.ActorDto;
 import com.example.exceptions.BadRequestException;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
