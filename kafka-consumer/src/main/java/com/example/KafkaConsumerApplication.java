@@ -42,14 +42,17 @@ public class KafkaConsumerApplication {
 			@Header(KafkaHeaders.OFFSET) String offset) {
 		switch (modo.substring(0, 4).toLowerCase()) {
 		case "list":
-			LOG.info(String.format("KEY: %s, MESSAGE: %s, OFFSET: %s", key, message, offset));
+			//LOG.info(String.format("KEY: %s, MESSAGE: %s, OFFSET: %s", key, message, offset));
+			System.out.println(String.format("KEY: %s, MESSAGE: %s, OFFSET: %s", key, message, offset));
 			break;
 		case "calc":
 			int count = contadores.containsKey(key) ? contadores.get(key) + 1 : 1;
 			contadores.put(key, count);
-			LOG.info("Nuevo resumen");
+			//LOG.info("Nuevo resumen");
+			System.out.println("Nuevo resumen");
 			contadores.forEach((clave, valor) -> {
-				LOG.info(String.format("KEY: %s, COUNT: %d", clave, valor));
+				//LOG.info(String.format("KEY: %s, COUNT: %d", clave, valor));
+				System.out.println(String.format("KEY: %s, COUNT: %d", clave, valor));
 			});
 			break;
 		default:
