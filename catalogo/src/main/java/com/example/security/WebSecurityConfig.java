@@ -38,7 +38,7 @@ public class WebSecurityConfig {
 			.csrf().disable()			
 			.addFilterAfter(new JWTAuthorizationFilter(SECRET), UsernamePasswordAuthenticationFilter.class)
 			.authorizeRequests()
-//			.antMatchers("/v1/actores/**").authenticated()
+			.antMatchers("/v1/actores/**").authenticated()
 			.anyRequest().permitAll()
 //			.anyRequest().authenticated()
 			;

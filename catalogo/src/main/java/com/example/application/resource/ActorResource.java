@@ -40,10 +40,13 @@ import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping(path = "/v1/actores")
+@SecurityRequirement(name = "bearerAuth")
 public class ActorResource {
 	@Autowired
 	ActorService srv;

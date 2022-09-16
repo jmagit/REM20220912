@@ -7,13 +7,23 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.domains.contracts.repositories.ActorRepository;
 import com.example.domains.entities.Actor;
 import com.example.domains.entities.dto.ActorDto;
 
+@RefreshScope(proxyMode = ScopedProxyMode.DEFAULT)
+@EnableEurekaClient
+@EnableFeignClients("com.example.application.proxies")
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
 
@@ -21,12 +31,21 @@ public class DemoApplication implements CommandLineRunner {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
+	@LoadBalanced
+	@Bean RestTemplate restTemplate() { 
+		return new RestTemplate(); 
+	}
+
 	@Autowired
 	private ActorRepository dao;
 
+	@Value("${particular.para.demos:Falla}")
+	String configString;
+	
 	@Override
 	@Transactional
 	public void run(String... args) throws Exception {
+		System.out.println(configString);
 //		System.out.println("Hola mundo");
 //
 ////		var actor = dao.findById(1);
